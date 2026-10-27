@@ -1,51 +1,84 @@
-# Geometry Wars Clone
+<div align="center">
 
-This is a 2D top-down arcade shooter inspired by the classic Geometry Wars. Built entirely in Python using the Pygame library, it features dynamic particle effects, glowing grid backgrounds, wave-based enemy spawning systems, and multiple enemy types. The project demonstrates solid object-oriented design, collision detection, and performance optimizations within a Python environment.
+# 💠 Geometry Wars (Python)
 
-## Features
-- **Dynamic Visuals:** Glowing grid distortion effects, explosions, and particle trails.
-- **Wave System:** Progressively difficult waves with increasing enemy counts.
-- **Enemy Variety:** Different enemy AI behaviors (Wanderers, Chasers, Shooters, Splitters).
-- **Score Multiplier:** Fast-paced combo system to maximize high scores.
+**A neon twin-stick arcade shooter built with nothing but `pygame.draw`: glowing shapes, particle
+explosions and a warping grid**
 
-## Technologies Used
-- **Python 3.x**
-- **Pygame**
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)
+![Pygame](https://img.shields.io/badge/Pygame-2.x-fbbf24?style=flat-square)
+![Resolution](https://img.shields.io/badge/1280×720-60%20FPS-a78bfa?style=flat-square)
+![Installer](https://img.shields.io/badge/installer-PyInstaller%20+%20Inno%20Setup-0ea5e9?style=flat-square)
 
-## Installation and Execution
-1. Clone the repository.
-2. Install dependencies:
-   ```bash
-   pip install pygame
-   ```
-3. Run the game:
-   ```bash
-   python main.py
-   ```
+[Gameplay](#-gameplay) · [Under the hood](#-under-the-hood) · [Play](#-play) · [Türkçe](#-türkçe)
+
+</div>
 
 ---
 
-# Geometry Wars Klonu
+A fan-made take on the classic neon arcade genre, written as an object-oriented programming project.
+Every visual is drawn from geometric primitives at runtime, with no sprite assets.
 
-Bu proje, klasik Geometry Wars oyunundan esinlenilerek geliştirilmiş 2 boyutlu, yukarıdan aşağıya (top-down) bakış açılı bir arcade nişancı oyunudur. Tamamen Python ve Pygame kütüphanesi kullanılarak inşa edilmiştir. Dinamik parçacık efektleri (particle effects), parlayan ızgara arka planı, dalga tabanlı düşman üretim sistemi ve çeşitli düşman türleri içerir. Proje; nesne yönelimli programlama, çarpışma algılama (collision detection) ve Python ortamında performans optimizasyonlarını başarıyla sergilemektedir.
+## 🎮 Gameplay
 
-## Özellikler
-- **Dinamik Görseller:** Parlayan ızgara bozulma efektleri, patlamalar ve parçacık izleri.
-- **Dalga Sistemi:** Giderek zorlaşan ve düşman sayısının arttığı dalga mekaniği.
-- **Düşman Çeşitliliği:** Farklı yapay zeka davranışlarına sahip düşmanlar (Gezinenler, Kovalayanlar, Nişancılar, Bölünenler).
-- **Skor Çarpanı:** Yüksek skorları maksimize etmek için hızlı tempolu kombo sistemi.
+| Control | Action |
+|---|---|
+| `W A S D` / arrow keys | Move (normalised diagonals) |
+| Mouse | Aim |
+| Left click / `Space` | Fire |
 
-## Kullanılan Teknolojiler
-- **Python 3.x**
-- **Pygame**
+**Enemies**
 
-## Kurulum ve Çalıştırma
-1. Depoyu klonlayın.
-2. Gerekli kütüphaneyi kurun:
-   ```bash
-   pip install pygame
-   ```
-3. Oyunu başlatın:
-   ```bash
-   python main.py
-   ```
+| Enemy | Shape | Behaviour | Score |
+|---|---|---|---:|
+| 🔺 Chaser | triangle | Hunts the player | 25 |
+| ⬠ Wanderer | pentagon | Drifts on a sine wave | 15 |
+| 🟧 Shooter | square | Fires every 2 s | 50 |
+| 🟣 Splitter | octagon | Splits into two Chasers on death | 75 |
+
+- **Waves** grow and mix enemy types, with shuffled spawns every 0.5 s.
+- **Combo multiplier** goes up to **×10** and resets after 4 s without a kill. A countdown bar changes colour as it rises.
+- **3 lives** with 2 s of invulnerability after a hit.
+
+## ⚙️ Under the hood
+
+- **State machine** for menu, playing, paused, wave transitions and game over.
+- **Composition** and an abstract `GameObject` base for the player, bullets and the enemy hierarchy.
+- **Managers**: `CollisionManager`, `WaveManager`, `ScoreManager`.
+- **Effects**: neon glow, a particle system, an animated grid and player trails.
+- **Windows installer**: PyInstaller one-file build, an Inno Setup package and a **single-install lock** through the Windows registry.
+
+Full write-up (in Turkish): [`docs/technical_documentation.md`](docs/technical_documentation.md).
+
+## ▶️ Play
+
+```bash
+pip install pygame
+python main.py
+```
+
+Build the installer on Windows with `installer\build.bat`.
+
+## 📁 Project structure
+
+```
+src/
+├── entities/   game_object, player, bullet, enemies/ (chaser, wanderer, shooter, splitter)
+├── effects/    grid, particle, particle_system
+├── managers/   collision, score, wave
+├── ui/         hud
+└── game.py
+installer/      PyInstaller + Inno Setup scripts, registry check
+settings.py     all tunables
+```
+
+## 🇹🇷 Türkçe
+
+Python ve Pygame ile yalnızca geometrik çizimlerle yapılmış neon görünümlü bir arcade nişancı oyunu. WASD ile
+hareket edilir, fareyle nişan alınır. Dört farklı düşman tipi, dalga sistemi, ×10'a kadar çıkan kombo çarpanı,
+parçacık efektleri ve bükülen ızgara içerir. PyInstaller + Inno Setup ile Windows kurulum paketi ve kayıt
+defteri üzerinden tek kurulum kilidi vardır. Nesneye Yönelik Programlama dersi projesidir.
+
+---
+
+<div align="center"><sub>Built by <a href="https://github.com/Soap2647">Mert Yasin Yılmaz</a> · inspired by classic neon arcade shooters</sub></div>
